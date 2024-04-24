@@ -1,4 +1,5 @@
 const http = require("http");
+const { restart } = require("nodemon");
 
 // const reListener = (req, res) => {
 //   console.log(req, res);
@@ -10,10 +11,22 @@ const http = require("http");
 // reListener 함수는 서버에 도달하는 모든 요청에 따라 실행될 것이고, createServer로 부터 시작된다.
 // 요청이 들어오면 해당 함수를 실행하라.
 const server = http.createServer((req, res) => {
-  console.log(req);
+  console.log(req.url, req.method, req.headers);
   // 서버를 중지하려면 process.exit()를 사용. 하지만 호출할 일이 대게 없음.
   // process.exit()는 이벤트 루프를 정리하기 때문에 프로그램이 종료된다.
   // process.exit();
+
+  // --------------------------------------- res 부분
+  // res.setHeader()로 새로운 헤더를 설정할 수 있다. Content-Type은 브라우저가 알고 이해하며 받아들이는 기본 헤더. / 두 번째 인수로는 첫 번째 인수에 대응하는 값을 넣어준다.
+  // 브라우저에게 html 코드라는 것을 알려주지 않으면 에러가 발생한다.
+  res.setHeader("Content-Type", "text/html");
+  // res.write()는 response에 데이터를 기록할 수 있음. 여러 라인에 걸처 데이터를 기록한다.
+  res.write("<html>");
+  res.write("<head><title>Node.js response html</title></head>");
+  res.write("<body><main><h1>Hello, Node.js</h1></main></body>");
+  res.write("</main>");
+  // res.end();를 하지 않으면 응답이 끝나지 않은 것으로 간주하여 계속 응답을 보내게 되는 상황이 온다.
+  res.end();
 });
 
 // Node.js가 스크립트를 바로 종료하지 않고 계속 실행되면서 들어오는 요청을 계속 듣도록 함.
