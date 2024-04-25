@@ -16,6 +16,30 @@ const server = http.createServer((req, res) => {
   // process.exit()는 이벤트 루프를 정리하기 때문에 프로그램이 종료된다.
   // process.exit();
 
+  // url 라우팅
+  const url = req.url;
+
+  if (url === "/") {
+    res.write("<html>");
+    res.write("<head><title>Node.js enter the message</title></head>");
+    res.write(
+      "<body><main><form action='/message' method='POST'><input type='text' placeholder='메세지를 입력하세요.'/><button type='submit'>Send!</button></input></form></main></body>"
+    );
+    res.write("</main>");
+    return res.end();
+  }
+
+  if (url === "/message") {
+    res.write("<html>");
+    res.write("<head><title>Node.js response html</title></head>");
+    res.write("<body><main><h1>message page</h1></main></body>");
+    res.write("</html>");
+    return res.end();
+  }
+
+  console.log(111111111, url);
+  console.log(2222222, req.url);
+
   // --------------------------------------- res 부분
   // res.setHeader()로 새로운 헤더를 설정할 수 있다. Content-Type은 브라우저가 알고 이해하며 받아들이는 기본 헤더. / 두 번째 인수로는 첫 번째 인수에 대응하는 값을 넣어준다.
   // 브라우저에게 html 코드라는 것을 알려주지 않으면 에러가 발생한다.
@@ -24,7 +48,7 @@ const server = http.createServer((req, res) => {
   res.write("<html>");
   res.write("<head><title>Node.js response html</title></head>");
   res.write("<body><main><h1>Hello, Node.js</h1></main></body>");
-  res.write("</main>");
+  res.write("</html>");
   // res.end();를 하지 않으면 응답이 끝나지 않은 것으로 간주하여 계속 응답을 보내게 되는 상황이 온다.
   res.end();
 });
