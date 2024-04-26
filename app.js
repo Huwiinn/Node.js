@@ -1,20 +1,25 @@
-const http = require("http");
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const app = express();
 
-app.use((req, res, next) => {
-  console.log("이건 미들웨어입니다.");
-  console.log(111, req.url);
-  console.log(222, req.method);
-  next(); // next()를 사용하여 바로 아래에 있는 미들웨어를 실행시킬 수 있다.
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use("/add-product", (req, res, next) => {
+  res.send(
+    "<form action='/product' method='POST' ><input type='text' name='title'><button type='submit'>Add Product</button></input></form>"
+  );
 });
 
-app.use((req, res, next) => {
-  console.log("이건 다른 미들웨어2 입니다.");
-  console.log(333, req.path);
+// app.get => 해당 경로에 들어오는 get 요청에만 작동한다.
+// 반대로 app.post => 해당 경로에 들어오는 post 요청에만 작동한다.
+app.post("/product", (req, res, next) => {
+  console.log(req.body);
+  res.redirect("/");
 });
 
-const server = http.createServer(app);
+app.use("/", (req, res, next) => {
+  res.send("<h1>Hello express~~~</h1>");
+});
 
-server.listen(3100);
+app.listen(3100);
