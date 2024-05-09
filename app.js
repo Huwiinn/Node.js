@@ -1,5 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const path = require("path");
+
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 
@@ -13,7 +15,7 @@ app.use(shopRoutes);
 
 app.use((req, res, next) => {
   // console.log("111111222 : ", res.statusCode);
-  res.status(404).send("<h1>페이지를 찾을 수 없습니다.</h1>");
+  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
 });
 
 app.listen(3100);
