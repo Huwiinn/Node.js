@@ -1,6 +1,6 @@
 ## express Router
 
-`const express = require("express");
+```const express = require("express");
 
 const router = express.Router();
 
@@ -15,7 +15,7 @@ console.log(req.body);
 res.redirect("/");
 });
 
-module.exports = router;`
+module.exports = router;```
 
 해당 코드에서 `router.use.. === app.use..`와 같은 기능을 수행하게 된다.
 차이점은 각 기능 및 용도별 코드를 `module.exports`로 밖으로 내보내는 것인데, module로 내보내어 필요할 때에만 가져와서 사용할 수 있기 때문에 관리하기 용이하다.
