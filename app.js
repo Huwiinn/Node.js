@@ -8,6 +8,7 @@ const shopRoutes = require("./routes/shop");
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "public")));
 
 // 라우팅을 url 경로마다 필터링을 걸어줄 수 있음.
 app.use("/admin", adminRoutes);
